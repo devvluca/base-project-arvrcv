@@ -614,6 +614,22 @@ function initSocket() {
 
     // Exibe imagem resultado
     resultImg.src = data.image;
+    if (data.geometry && data.geometry.faces) {
+        const rostos = data.geometry.faces;
+        const widthTela = data.geometry.width || 640;
+        const heightTela = data.geometry.height || 480;
+        rostos.forEach((rosto, index) => {
+            const cx = rosto.x + (rosto.w / 2);
+            const cy = rosto.y + (rosto.h / 2);
+            const x3d = ((cx / widthTela) - 0.5) * -10;
+            const y3d = ((cy / heightTela) - 0.5) * -5 + 1.6;
+            const z3d = - (widthTela / rosto.w) * 1.5;
+            socket.emit("arvr_command", {
+                command: "move_object",
+                payload: { id: index + 1, x: x3d, y: y3d, z: z3d }
+            });
+        });
+    }
     resultImg.style.display = "block";
     noResult.style.display = "none";
 

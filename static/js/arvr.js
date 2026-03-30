@@ -58,20 +58,27 @@ const SHAPE_MAP = {
 };
 
 function createAframeEntity(obj) {
+  const wrapper = document.createElement("a-entity");
+  wrapper.setAttribute("id", `obj-${obj.id}`);
+  wrapper.setAttribute("position", `${obj.position.x} ${obj.position.y} ${obj.position.z}`);
   const tag = SHAPE_MAP[obj.type] || "a-box";
-  const el = document.createElement(tag);
-  el.setAttribute("id", `obj-${obj.id}`);
-  el.setAttribute("position", `${obj.position.x} ${obj.position.y} ${obj.position.z}`);
-  el.setAttribute("material", { color: obj.color, metalness: 0.2, roughness: 0.7 });
-  el.setAttribute("shadow", "cast: true; receive: true");
-
-  // Sombra suave
-  if (obj.type === "box")      el.setAttribute("depth", "0.8");
-  if (obj.type === "cylinder") el.setAttribute("radius-top", "0.4");
-  if (obj.type === "torus")    el.setAttribute("radius-tubular", "0.08");
-
-  if (obj.animation) attachAnimation(el);
-  return el;
+  const body = document.createElement(tag);
+  body.setAttribute("material", { color: obj.color, metalness: 0.2, roughness: 0.7 });
+  body.setAttribute("shadow", "cast: true; receive: true");
+  if (obj.type === "box") body.setAttribute("depth", "0.8");
+  if (obj.type === "cylinder") body.setAttribute("radius-top", "0.4");
+  if (obj.type === "torus") body.setAttribute("radius-tubular", "0.08");
+  if (obj.animation) attachAnimation(body);
+  const textEl = document.createElement("a-text");
+  textEl.setAttribute("value", `Pessoa ${obj.id}`);
+  textEl.setAttribute("align", "center");
+  textEl.setAttribute("position", "0 1.5 0");
+  textEl.setAttribute("color", "#FFFFFF");
+  textEl.setAttribute("scale", "1.5 1.5 1.5");
+  textEl.setAttribute("look-at", "[camera]");
+  wrapper.appendChild(body);
+  wrapper.appendChild(textEl);
+  return wrapper;
 }
 
 function attachAnimation(el) {

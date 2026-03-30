@@ -47,8 +47,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "arvrcv-base-server-secret"
 
 # allow_upgrades=True garante suporte a WebSocket via eventlet/gevent
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet", logger=False, engineio_logger=False)
-
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading", logger=False, engineio_logger=False)
 # ---------------------------------------------------------------------------
 # MediaPipe – Detecção de mãos e pose (Tasks API)
 # ---------------------------------------------------------------------------
