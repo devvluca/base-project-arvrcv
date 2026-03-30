@@ -2,6 +2,12 @@
 
 Servidor base para projetos das disciplinas de **Realidade Aumentada/Virtual** e **Visão Computacional**.
 
+**Membros da Equipe:**
+- Luca Aguiar
+- Miguel Albuquerque
+- Igor Gabriel
+- João Luiz
+
 ## Tecnologias
 
 | Camada     | Tecnologia |
